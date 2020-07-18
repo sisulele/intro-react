@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
 import Header from "./components/Header";
+import Nav from "./components/Nav";
 import Table from "./components/Table";
-import List from "./components/List";
-import Button from "./components/Button";
+import FormWithList from "./components/FormWithList";
 
 const App = () => {
-  const [buttonClicked, setButtonClicked] = useState("assignments");
+  const [view, setView] = useState("assignments");
   const [assignments, setAssigments] = useState([]);
   const [students, setStudents] = useState([]);
   const [grades, setGrades] = useState({});
 
-  const handleButtonClicked = buttonName => {
-    setButtonClicked(buttonName);
+  const handleNav = viewTab => {
+    setView(viewTab);
   };
 
   const addAssignment = assignmentName => {
@@ -38,26 +38,25 @@ const App = () => {
 
   let tabChoice = <h4 className="text-center mt-3">gradebook is empty</h4>;
 
-  /*Uncomment below to render assignments*/
-  if (buttonClicked === "assignments") {
+  if (view === "assignments") {
     tabChoice = (
-      <List
+      <FormWithList
         placeholder="Add Assignment..."
         currList={assignments}
         addFunction={addAssignment}
         title="Assignments"
       />
     );
-  } else if (buttonClicked === "students") {
+  } else if (view === "students") {
     tabChoice = (
-      <List
+      <FormWithList
         placeholder="Add Student..."
         currList={students}
         addFunction={addStudent}
         title="Student Roster"
       />
     );
-  } else if (buttonClicked === "grades") {
+  } else if (view === "grades") {
     tabChoice = (
       <Table
         tableNames={assignments}
@@ -71,14 +70,8 @@ const App = () => {
   return (
     <>
       <Header title="GradeBook" />
+      <Nav handleView={handleNav} />
 
-      <nav className="UnderlineNav d-flex flex-justify-center">
-        <div className="UnderlineNav-body BtnGroup mr-2 py-4">
-          <Button onClick={handleButtonClicked}>assignments</Button>
-          <Button onClick={handleButtonClicked}>students</Button>
-          <Button onClick={handleButtonClicked}>grades</Button>
-        </div>
-      </nav>
       {tabChoice}
     </>
   );
