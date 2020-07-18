@@ -49,7 +49,7 @@ class App extends React.Component {
     let tabChoice = <div />;
 
     /*Uncomment below to render assignments*/
-    /*if (this.state.buttonClicked === "assignments") {
+    if (this.state.buttonClicked === "assignments") {
       tabChoice = (
         <List
           placeholder="Add Assignment..."
@@ -58,7 +58,7 @@ class App extends React.Component {
           title="Assignments"
         />
       );
-    }*/
+    }
 
     /* Change below to render students*/
 
@@ -89,7 +89,7 @@ class App extends React.Component {
       <div>
         <div className="Box Box--spacious f4">
           <header className="Box-header">
-            <h3 className="text-center">GradeBook</h3>
+            <h1 className="text-center">GradeBook</h1>
           </header>
         </div>
         <nav className="UnderlineNav d-flex flex-justify-center">
