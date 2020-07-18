@@ -26,9 +26,10 @@ class List extends React.Component {
 
   render() {
     return (
-      <div className="col-6 mx-auto">
-        <p className="h2">REPLACE THIS TITLE WITH A PROP</p> 
-        <form onSubmit={this.handleSubmit}>
+      <div className="col-5 mx-auto mt-5">
+        {/*Replace the code below to call the title prop*/}
+        <p className="h2">{this.props.title}</p>
+        <form onSubmit={this.handleSubmit} className="mb-3">
           <label>
             <input
               className="form-control input-sm"
