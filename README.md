@@ -1,4 +1,4 @@
-This is your template repository!
+## GradeBook
 
 You will make all changes in the `changes` branch.
 
