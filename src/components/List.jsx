@@ -10,20 +10,21 @@ const List = ({ title, addFunction, placeholder, currList }) => {
   };
 
   return (
-    <div className="col-5 mx-auto mt-5">
-      {/*Replace the code below to call the title prop*/}
+    <div className="col-lg-4 col-md-6 mx-auto mt-5 px-3">
       <p className="h2">{title}</p>
       <form onSubmit={handleSubmit} className="mb-3">
-        <label>
+        <div className="input-group">
           <input
-            className="form-control input-sm"
+            className="form-control"
             type="text"
             placeholder={placeholder}
             value={value}
             onChange={e => setValue(e.target.value)}
           />
-        </label>
-        <input className="btn btn-sm" type="submit" value="Submit" />
+          <span className="input-group-button">
+            <input className="btn" type="submit" value="Submit" />
+          </span>
+        </div>
       </form>
       <ul className="Box">
         <div className="Box-header">{title}</div>

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+
+import Header from "./components/Header";
 import Table from "./components/Table";
 import List from "./components/List";
+import Button from "./components/Button";
 
 const App = () => {
-  const [buttonClicked, setButtonClicked] = useState("none");
+  const [buttonClicked, setButtonClicked] = useState("assignments");
   const [assignments, setAssigments] = useState([]);
   const [students, setStudents] = useState([]);
   const [grades, setGrades] = useState({});
@@ -12,13 +15,13 @@ const App = () => {
     setButtonClicked(buttonName);
   };
 
-  /*Check out this addAssignment method*/
   const addAssignment = assignmentName => {
+    if (assignmentName.trim().length < 1) return;
     setAssigments(assignments.concat(assignmentName));
   };
 
-  /*Write an addStudent method here*/
   const addStudent = studentName => {
+    if (studentName.trim().length < 1) return;
     setStudents(students.concat(studentName));
   };
 
@@ -30,7 +33,6 @@ const App = () => {
       newGrades[assignmentName] = {};
     }
     newGrades[assignmentName][studentName] = score;
-    // setState({ grades: grades });
     setGrades(newGrades);
   };
 
@@ -67,12 +69,9 @@ const App = () => {
   }
 
   return (
-    <div>
-      <div className="Box Box--spacious f4">
-        <header className="py-4 bg-gray-light">
-          <h1 className="text-center">GradeBook</h1>
-        </header>
-      </div>
+    <>
+      <Header title="GradeBook" />
+
       <nav className="UnderlineNav d-flex flex-justify-center">
         <div className="UnderlineNav-body BtnGroup mr-2 py-4">
           <Button onClick={handleButtonClicked}>assignments</Button>
@@ -81,18 +80,8 @@ const App = () => {
         </div>
       </nav>
       {tabChoice}
-    </div>
+    </>
   );
 };
-
-const Button = ({ children, onClick }) => (
-  <button
-    className="btn BtnGroup-item"
-    style={{ textTransform: "capitalize" }}
-    onClick={() => onClick(children.toLowerCase())}
-  >
-    {children}
-  </button>
-);
 
 export default App;

@@ -27,17 +27,17 @@ const Table = ({ rows, data, addFunction, tableNames }) => {
     );
   };
   return (
-    <div className="pt-6 col-5 mx-auto">
+    <div className="col-lg-4 col-md-6 mx-auto pt-5 px-3">
       <h2 className="mb-3">Grades</h2>
       {tableNames.length > 0 ? (
         tableNames.map((name, index) => (
-          <div key={index} className="Box mb-3">
+          <div key={index} className="Box mb-4">
             <div className="Box-header Box-title">{name}</div>
             <div>{createRows(name)}</div>
           </div>
         ))
       ) : (
-        <p>no data yet</p>
+        <p>Grades will appear here</p>
       )}
     </div>
   );
