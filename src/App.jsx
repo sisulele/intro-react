@@ -1,128 +1,98 @@
-import React from "react";
-import Table from "./Table";
-import List from "./List";
+import React, { useState } from "react";
+import Table from "./components/Table";
+import List from "./components/List";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [buttonClicked, setButtonClicked] = useState("none");
+  const [assignments, setAssigments] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [grades, setGrades] = useState({});
 
-    this.state = {
-      buttonClicked: "",
-      assignments: [] /*Below this line, add the students state variable*/,
-      students: [],
-      grades: {}
-    };
-
-    this.handleButtonClicked = this.handleButtonClicked.bind(this);
-    this.addAssignment = this.addAssignment.bind(this);
-    /*Uncomment the line below to bind the method*/
-    this.addStudent = this.addStudent.bind(this);
-    this.addGrade = this.addGrade.bind(this);
-  }
-
-  handleButtonClicked(buttonName) {
-    this.setState({
-      buttonClicked: buttonName
-    });
-  }
+  const handleButtonClicked = buttonName => {
+    setButtonClicked(buttonName);
+  };
 
   /*Check out this addAssignment method*/
-  addAssignment(assignmentName) {
-    this.setState({
-      assignments: this.state.assignments.concat(assignmentName)
-    });
-  }
+  const addAssignment = assignmentName => {
+    setAssigments(assignments.concat(assignmentName));
+  };
 
   /*Write an addStudent method here*/
-  addStudent(studentName) {
-    this.setState({
-      students: this.state.students.concat(studentName)
-    });
-  }
+  const addStudent = studentName => {
+    setStudents(students.concat(studentName));
+  };
 
-  addGrade(assignment, student, score) {
-    let grades = this.state.grades;
+  const addGrade = (assignment, student, score) => {
+    let newGrades = { ...grades };
     let assignmentName = assignment;
     let studentName = student;
-    if (!(assignment in grades)) {
-      grades[assignmentName] = {};
+    if (!(assignment in newGrades)) {
+      newGrades[assignmentName] = {};
     }
-    grades[assignmentName][studentName] = score;
-    this.setState({ grades: grades });
-  }
+    newGrades[assignmentName][studentName] = score;
+    // setState({ grades: grades });
+    setGrades(newGrades);
+  };
 
-  render() {
-    let tabChoice = <div />;
+  let tabChoice = <h4 className="text-center mt-3">gradebook is empty</h4>;
 
-    /*Uncomment below to render assignments*/
-    if (this.state.buttonClicked === "assignments") {
-      tabChoice = (
-        <List
-          placeholder="Add Assignment..."
-          currList={this.state.assignments}
-          addFunction={this.addAssignment}
-          title="Assignments"
-        />
-      );
-    }
-
-    /* Change below to render students*/
-    if (this.state.buttonClicked === "students") {
-      tabChoice = (
-        <List
-          placeholder="Add Student..."
-          currList={this.state.students}
-          addFunction={this.addStudent}
-          title="Student Roster"
-        />
-      );
-    }
-
-    /* Uncomment lines below to render grades*/
-    if (this.state.buttonClicked === "grades") {
-      tabChoice = (
-        <Table
-          tableNames={this.state.assignments}
-          rows={this.state.students}
-          addFunction={this.addGrade}
-          data={this.state.grades}
-        />
-      );
-    }
-
-    return (
-      <div>
-        <div className="Box Box--spacious f4">
-          <header className="Box-header">
-            <h1 className="text-center">GradeBook</h1>
-          </header>
-        </div>
-        <nav className="UnderlineNav d-flex flex-justify-center">
-          <div className="UnderlineNav-body py-4">
-            <button
-              className="btn btn-primary"
-              onClick={() => this.handleButtonClicked("assignments")}
-            >
-              Assignments
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => this.handleButtonClicked("students")}
-            >
-              Students
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => this.handleButtonClicked("grades")}
-            >
-              Grades
-            </button>
-          </div>
-        </nav>
-        {tabChoice}
-      </div>
+  /*Uncomment below to render assignments*/
+  if (buttonClicked === "assignments") {
+    tabChoice = (
+      <List
+        placeholder="Add Assignment..."
+        currList={assignments}
+        addFunction={addAssignment}
+        title="Assignments"
+      />
+    );
+  } else if (buttonClicked === "students") {
+    tabChoice = (
+      <List
+        placeholder="Add Student..."
+        currList={students}
+        addFunction={addStudent}
+        title="Student Roster"
+      />
+    );
+  } else if (buttonClicked === "grades") {
+    tabChoice = (
+      <Table
+        tableNames={assignments}
+        rows={students}
+        addFunction={addGrade}
+        data={grades}
+      />
     );
   }
-}
+
+  return (
+    <div>
+      <div className="Box Box--spacious f4">
+        <header className="py-4 bg-gray-light">
+          <h1 className="text-center">GradeBook</h1>
+        </header>
+      </div>
+      <nav className="UnderlineNav d-flex flex-justify-center">
+        <div className="UnderlineNav-body BtnGroup mr-2 py-4">
+          <Button onClick={handleButtonClicked}>assignments</Button>
+          <Button onClick={handleButtonClicked}>students</Button>
+          <Button onClick={handleButtonClicked}>grades</Button>
+        </div>
+      </nav>
+      {tabChoice}
+    </div>
+  );
+};
+
+const Button = ({ children, onClick }) => (
+  <button
+    className="btn BtnGroup-item"
+    style={{ textTransform: "capitalize" }}
+    onClick={() => onClick(children.toLowerCase())}
+  >
+    {children}
+  </button>
+);
 
 export default App;
