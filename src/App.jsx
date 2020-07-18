@@ -34,6 +34,11 @@ class App extends React.Component {
   }
 
   /*Write an addStudent method here*/
+  addStudent(studenttName) {
+    this.setState({
+      students: this.state.students.concat(studenttName)
+    });
+  }
 
   addGrade(assignment, student, score) {
     let grades = this.state.grades;
@@ -63,16 +68,16 @@ class App extends React.Component {
 
     /* Change below to render students*/
 
-    /*if (this.state.buttonClicked === "students") {
+    if (this.state.buttonClicked === "students") {
       tabChoice = (
         <List
-          placeholder="Add Assignment..."
-          currList={this.state.assignments}
-          addFunction={this.addAssignment}
+          placeholder="Add Student..."
+          currList={this.state.students}
+          addFunction={this.addStudent}
           title="Student Roster"
         />
       );
-    }*/
+    }
 
     /* Uncomment lines below to render grades*/
     /*if (this.state.buttonClicked === "grades") {
@@ -94,7 +99,7 @@ class App extends React.Component {
           </header>
         </div>
         <nav className="UnderlineNav d-flex flex-justify-center">
-          <div className="UnderlineNav-body pt-6">
+          <div className="UnderlineNav-body py-4">
             <button
               className="btn btn-primary"
               onClick={() => this.handleButtonClicked("assignments")}
