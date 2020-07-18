@@ -1,5 +1,5 @@
 import React from "react";
-import Table from "./Table";
+// import Table from "./Table";
 /*Add import statement here*/
 
 class App extends React.Component {
@@ -65,7 +65,7 @@ class App extends React.Component {
     /*if (this.state.buttonClicked === "students") {
       tabChoice = (
         <List
-          placeholder="Add Assignment..." 
+          placeholder="Add Assignment..."
           currList={this.state.assignments}
           addFunction={this.addAssignment}
           title="Student Roster"
@@ -88,9 +88,9 @@ class App extends React.Component {
     return (
       <div>
         <div className="Box Box--spacious f4">
-          <div className="Box-header">
-            {/* Replace this line with the proper header code*/}
-          </div>
+          <header className="Box-header">
+            <h1 className="text-center">GradeBook</h1>
+          </header>
         </div>
         <nav className="UnderlineNav d-flex flex-justify-center">
           <div className="UnderlineNav-body pt-6">
