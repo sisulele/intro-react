@@ -6,6 +6,8 @@ const Table = ({
   addFunction,
   tableNames: assignments
 }) => {
+  const reverse = arr => arr.slice().reverse();
+  const reversedAssignments = reverse(assignments);
   // console.log("data", data, "rows", students, "tablenames", assignments);
   const getValue = (grades, assignment, student) => {
     if (assignment in grades && student in grades[assignment]) {
@@ -36,8 +38,8 @@ const Table = ({
   return (
     <div className="col-lg-4 col-md-6 mx-auto pt-5 px-3">
       <h2 className="mb-3">Grades</h2>
-      {assignments.length > 0 ? (
-        assignments.map((assignment, index) => (
+      {reversedAssignments.length > 0 ? (
+        reversedAssignments.map((assignment, index) => (
           <div key={index} className="Box mb-4">
             <div className="Box-header Box-title text-uppercase">
               {assignment}
